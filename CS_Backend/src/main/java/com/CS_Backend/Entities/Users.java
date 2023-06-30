@@ -51,7 +51,6 @@ public class Users {
 
     @Column(
             name="role",
-            nullable = false,
             columnDefinition = "TEXT DEFAULT 'user'"
     )
     private String role;
@@ -62,6 +61,14 @@ public class Users {
 
     public String getRole() {
         return role;
+    }
+
+    public Users(String firstName, String lastName, String email, String pswd) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.pswd = pswd;
+        this.role="user";
     }
 
     public Users(String firstName, String lastName, String email, String pswd, String role) {
