@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
-import { ResponsiveAppBar } from "./Components/Navbar";
+import { ResponsiveAppBar } from "../Components/Navbar";
 import { useQuery } from "react-query";
-import { getProducts } from "./API/queries";
+import { getProducts } from "../API/queries";
 import { Grid, Typography } from "@mui/material";
-import { ProductTable } from "./Components/Product/ProductTable";
-import { CartTable } from "./Components/Cart/CartTable";
+import { ProductTable } from "../Components/Product/ProductTable";
+import { CartTable } from "../Components/Cart/CartTable";
 
 function App() {
   return (
