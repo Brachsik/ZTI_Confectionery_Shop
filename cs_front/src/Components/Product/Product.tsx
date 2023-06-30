@@ -23,7 +23,7 @@ export const Product = ({ product }: ProductProps) => {
       <TableCell align="right">
         <Button
           onClick={() => basketCtx?.addItem(product)}
-          disabled={authCtx?.id === null}
+          disabled={authCtx?.id === null || !basketCtx?.canBeAdded(product.id)}
           variant="contained"
         >
           Add to Cart

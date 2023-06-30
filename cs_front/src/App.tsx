@@ -4,20 +4,11 @@ import viteLogo from "/vite.svg";
 import { ResponsiveAppBar } from "./Components/Navbar";
 import { useQuery } from "react-query";
 import { getProducts } from "./API/queries";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { ProductTable } from "./Components/Product/ProductTable";
 import { CartTable } from "./Components/Cart/CartTable";
 
 function App() {
-  const { data: products, refetch: refetchProducts } = useQuery(
-    ["products"],
-    async () => await getProducts()
-  );
-
-  useEffect(() => {
-    console.log(products?.data);
-  }, [products]);
-
   return (
     <div className="bg-gray-200 min-h-screen p-2">
       <div className="p-2">
@@ -48,11 +39,47 @@ function App() {
       <Grid container spacing={2} gap={1} className="p-2 pl-6 p pt-4">
         <Grid item xs={8} className="bg-white rounded-sm flex">
           <div className="p-4">
-            {products && <ProductTable products={products.data}></ProductTable>}
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                pl: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              Desserts
+            </Typography>
+            <ProductTable />
           </div>
         </Grid>
         <Grid item xs={3.9} className="bg-white rounded-sm ml-auto">
-          <div>
+          <div className="p-4">
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                pl: 1,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              Cart
+            </Typography>
             <CartTable></CartTable>
           </div>
         </Grid>

@@ -3,6 +3,7 @@ import { ProductType } from "../../API/producType";
 import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { BasketContext } from "../../Context/BasketContext";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface ProductProps {
   product: ProductType;
@@ -26,8 +27,9 @@ export const CartProduct = ({ product }: ProductProps) => {
           onClick={() => basketCtx?.deleteItem(product.id)}
           variant="contained"
           color="error"
+          sx={{ width: "10px", px: 2 }}
         >
-          Delete
+          <DeleteIcon />
         </Button>
       </TableCell>
     </TableRow>

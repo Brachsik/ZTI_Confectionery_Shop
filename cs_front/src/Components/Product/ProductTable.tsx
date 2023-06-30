@@ -9,12 +9,18 @@ import {
 } from "@mui/material";
 import { ProductType } from "../../API/producType";
 import { Product } from "./Product";
+import { useContext } from "react";
+import { ProductsContext } from "../../Context/ProductsContext";
 
 interface ProductTableProps {
-  products: ProductType[];
+  products?: ProductType[];
 }
 
 export const ProductTable = ({ products }: ProductTableProps) => {
+  const productsCtx = useContext(ProductsContext);
+
+  if (!productsCtx || !productsCtx.products) return null;
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -28,7 +34,7 @@ export const ProductTable = ({ products }: ProductTableProps) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((prod) => (
+          {productsCtx.products.map((prod) => (
             <Product product={prod} key={prod.id} />
           ))}
         </TableBody>

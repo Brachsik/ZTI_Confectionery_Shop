@@ -1,5 +1,12 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { ProductType, Products } from "../API/producType";
+import { ProductsContext } from "./ProductsContext";
 
 interface BasketContextProps {
   children: ReactNode;
@@ -15,12 +22,15 @@ export interface BasketProps {
   items: ProductType[] | null;
   addItem: (arg0: ProductType) => void;
   deleteItem: (arg0: string) => void;
+  canBeAdded: (arg0: string) => boolean;
 }
 
 export const BasketContext = createContext<BasketProps | null>(null);
 
 export const BasketContextProvider = ({ children }: BasketContextProps) => {
   const [items, setItems] = useState<ProductType[] | null>(null);
+
+  const productsCtx = useContext(ProductsContext);
 
   useEffect(() => {
     if (items) console.log("Basket -> ", items);
@@ -52,8 +62,22 @@ export const BasketContextProvider = ({ children }: BasketContextProps) => {
       ]);
   };
 
+  const canBeAdded = (prodId: string) => {
+    const itemInCart = items?.find((item) => item.id === prodId);
+    if (!items || !itemInCart) return true;
+    else {
+      if (productsCtx !== undefined && productsCtx?.products) {
+        return (
+          productsCtx.products.find((product) => product.id === prodId)!
+            .quantity > itemInCart.quantity
+        );
+      }
+      return false;
+    }
+  };
+
   return (
-    <BasketContext.Provider value={{ items, addItem, deleteItem }}>
+    <BasketContext.Provider value={{ items, addItem, deleteItem, canBeAdded }}>
       {children}
     </BasketContext.Provider>
   );
