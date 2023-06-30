@@ -60,7 +60,7 @@ export const ResponsiveAppBar = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            Confectionery SHOP
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

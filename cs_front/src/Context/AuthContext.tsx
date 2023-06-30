@@ -15,7 +15,7 @@ export interface AuthProps {
 export const AuthContext = createContext<AuthProps | null>(null);
 
 export const AuthContextProvider = ({ children }: AuthContextProps) => {
-  const [id, setId] = useState<string | null>(null);
+  const [id, setId] = useState<string | null>("1");
   const [first_name, setFirst_name] = useState<string>("");
   const [last_name, setLast_name] = useState<string>("");
   const [email, setEmail] = useState<string>("");

@@ -5,6 +5,8 @@ import { ResponsiveAppBar } from "./Components/Navbar";
 import { useQuery } from "react-query";
 import { getProducts } from "./API/queries";
 import { Grid } from "@mui/material";
+import { ProductTable } from "./Components/Product/ProductTable";
+import { CartTable } from "./Components/Cart/CartTable";
 
 function App() {
   const { data: products, refetch: refetchProducts } = useQuery(
@@ -17,7 +19,7 @@ function App() {
   }, [products]);
 
   return (
-    <div className="bg-gray-200 min-h-screen">
+    <div className="bg-gray-200 min-h-screen p-2">
       <div className="p-2">
         <ResponsiveAppBar />
       </div>
@@ -43,12 +45,16 @@ function App() {
         </section>
       </main> */}
 
-      <Grid container spacing={2} className="p-2 pt-4">
-        <Grid item xs={8} className="bg-white rounded-sm">
-          <div>ayo</div>
+      <Grid container spacing={2} gap={1} className="p-2 pl-6 p pt-4">
+        <Grid item xs={8} className="bg-white rounded-sm flex">
+          <div className="p-4">
+            {products && <ProductTable products={products.data}></ProductTable>}
+          </div>
         </Grid>
-        <Grid item xs={4} className="bg-white rounded-sm">
-          <div>Koszyk</div>
+        <Grid item xs={3.9} className="bg-white rounded-sm ml-auto">
+          <div>
+            <CartTable></CartTable>
+          </div>
         </Grid>
       </Grid>
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { User, UserRegister } from "./userType";
 import { useMutation } from "react-query";
-import { Products } from "./producType";
+import { ProductType, Products } from "./producType";
 
 interface loginProps {
   email: string;
@@ -33,7 +33,9 @@ export const registerQuery = async (data: UserRegister) => {
 };
 
 export const getProducts = async () => {
-  return await axios.get<Products>(`${import.meta.env.VITE_BACKEND}/products`);
+  return await axios.get<ProductType[]>(
+    `${import.meta.env.VITE_BACKEND}/products`
+  );
 };
 
 export const getUsers = async () => {

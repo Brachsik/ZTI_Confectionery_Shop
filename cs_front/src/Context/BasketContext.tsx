@@ -1,5 +1,5 @@
-import { ReactNode, createContext, useState } from "react";
-import { Product } from "../API/producType";
+import { ReactNode, createContext, useEffect, useState } from "react";
+import { ProductType, Products } from "../API/producType";
 
 interface BasketContextProps {
   children: ReactNode;
@@ -12,24 +12,30 @@ export interface BasketItem {
 }
 
 export interface BasketProps {
-  items: BasketItem[] | null;
+  items: ProductType[] | null;
+  addItem: (arg0: ProductType) => void;
+  deleteItem: (arg0: string) => void;
 }
 
 export const BasketContext = createContext<BasketProps | null>(null);
 
 export const BasketContextProvider = ({ children }: BasketContextProps) => {
-  const [items, setItems] = useState<BasketItem[] | null>(null);
+  const [items, setItems] = useState<ProductType[] | null>(null);
 
-  const addItem = (prod: Product) => {
-    if (!items) setItems([{ ...prod }]);
+  useEffect(() => {
+    if (items) console.log("Basket -> ", items);
+  }, [items]);
+
+  const addItem = (prod: ProductType) => {
+    if (!items) setItems([{ ...prod, quantity: 1 }]);
     else {
       const item = items.find((item) => item.id === prod.id) || null;
 
-      if (!item) setItems([...items, { ...prod }]);
+      if (!item) setItems([...items, { ...prod, quantity: 1 }]);
       else
         setItems([
           ...items.filter((item) => item.id !== prod.id),
-          { id: prod.id, name: prod.name, quantity: item.quantity + 1 },
+          { ...prod, quantity: item.quantity + 1 },
         ]);
     }
   };
@@ -42,12 +48,12 @@ export const BasketContextProvider = ({ children }: BasketContextProps) => {
     else
       setItems([
         ...items!.filter((item) => item.id !== prodId),
-        { id: item!.id, name: item!.name, quantity: item!.quantity - 1 },
+        { ...item, quantity: item!.quantity - 1 },
       ]);
   };
 
   return (
-    <BasketContext.Provider value={{ items }}>
+    <BasketContext.Provider value={{ items, addItem, deleteItem }}>
       {children}
     </BasketContext.Provider>
   );

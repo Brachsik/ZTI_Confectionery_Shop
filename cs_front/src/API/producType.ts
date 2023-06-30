@@ -1,5 +1,5 @@
-export interface Product {
-  string: id;
+export interface ProductType {
+  id: string;
   name: string;
   price: string;
   weight: string;
@@ -7,5 +7,5 @@ export interface Product {
 }
 
 export interface Products {
-  products: Product[];
+  products: ProductType[];
 }
