@@ -6,11 +6,15 @@ import { BasketContext } from "../../Context/BasketContext";
 
 interface ProductProps {
   product: ProductType;
+  secondary?: boolean;
 }
 
-export const Product = ({ product }: ProductProps) => {
+export const Product = ({ product, secondary }: ProductProps) => {
   const authCtx = useContext(AuthContext);
   const basketCtx = useContext(BasketContext);
+  let findInBasket;
+  if (basketCtx)
+    findInBasket = basketCtx.items?.find((item) => item.name === product.name);
 
   return (
     <TableRow>
@@ -18,16 +22,22 @@ export const Product = ({ product }: ProductProps) => {
         {product.name}
       </TableCell>
       <TableCell align="right">{product.weight}</TableCell>
-      <TableCell align="right">{product.quantity}</TableCell>
+      <TableCell align="right">
+        {product.quantity - (findInBasket?.quantity || 0)}
+      </TableCell>
       <TableCell align="right">{product.price} pln</TableCell>
       <TableCell align="right">
-        <Button
-          onClick={() => basketCtx?.addItem(product)}
-          disabled={authCtx?.id === null || !basketCtx?.canBeAdded(product.id)}
-          variant="contained"
-        >
-          Add to Cart
-        </Button>
+        {!secondary && (
+          <Button
+            onClick={() => basketCtx?.addItem(product)}
+            disabled={
+              authCtx?.id === null || !basketCtx?.canBeAdded(product.id)
+            }
+            variant="contained"
+          >
+            Add to Cart
+          </Button>
+        )}
       </TableCell>
     </TableRow>
   );

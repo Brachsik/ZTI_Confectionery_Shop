@@ -1,19 +1,18 @@
-export interface User {
+export interface UserType {
   id: string;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   role: string;
 }
 
 export interface Users {
-  users: User[];
+  users: UserType[];
 }
 
 export interface UserRegister {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  role: string;
   pswd: string;
 }

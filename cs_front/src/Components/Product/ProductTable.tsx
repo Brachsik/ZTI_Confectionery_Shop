@@ -7,16 +7,16 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { ProductType } from "../../API/producType";
 import { Product } from "./Product";
 import { useContext } from "react";
 import { ProductsContext } from "../../Context/ProductsContext";
+import { AdminProd } from "../AdminProd/AdminProd";
 
 interface ProductTableProps {
-  products?: ProductType[];
+  secondary?: boolean;
 }
 
-export const ProductTable = ({ products }: ProductTableProps) => {
+export const ProductTable = ({ secondary }: ProductTableProps) => {
   const productsCtx = useContext(ProductsContext);
 
   if (!productsCtx || !productsCtx.products) return null;
@@ -34,9 +34,13 @@ export const ProductTable = ({ products }: ProductTableProps) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {productsCtx.products.map((prod) => (
-            <Product product={prod} key={prod.id} />
-          ))}
+          {!secondary
+            ? productsCtx.products.map((prod) => (
+                <Product product={prod} key={prod.id} />
+              ))
+            : productsCtx.products.map((prod) => (
+                <AdminProd product={prod} key={prod.id} />
+              ))}
         </TableBody>
       </Table>
     </TableContainer>

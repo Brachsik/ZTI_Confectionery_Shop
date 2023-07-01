@@ -3,6 +3,8 @@ package com.CS_Backend.Services;
 import com.CS_Backend.Entities.Users;
 import com.CS_Backend.Layers.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -54,5 +56,23 @@ public class UserService {
                 !Objects.equals(usersById.getLastName(), lastName)) {
             usersById.setLastName(lastName);
         }
+    }
+
+    public Users loginUser(String email, String pswd) {
+        Optional<Users> user = usersRepository.findUsersByEmail(email);
+
+        if (!user.isPresent()) {
+            // User not found
+            throw new IllegalStateException("Invalid email or password");
+        } else if (user != null) {
+            if (!user.get().getPswd().equals(pswd)) {
+                // Incorrect password
+                throw new IllegalStateException("Invalid email or password");
+            }
+        }
+
+
+        // Successful login
+        return user.get();
     }
 }

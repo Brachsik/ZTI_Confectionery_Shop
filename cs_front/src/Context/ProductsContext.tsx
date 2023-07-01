@@ -15,6 +15,7 @@ export interface ProductsItem {
 
 export interface ProductsProps {
   products: ProductType[] | null;
+  refetchData: () => void;
 }
 
 export const ProductsContext = createContext<ProductsProps | null>(null);
@@ -22,17 +23,19 @@ export const ProductsContext = createContext<ProductsProps | null>(null);
 export const ProductsContextProvider = ({ children }: ProductsContextProps) => {
   const [products, setItems] = useState<ProductType[] | null>(null);
 
-  const { data: productsData } = useQuery(
+  const { data: productsData, refetch } = useQuery(
     ["products"],
     async () => await getProducts()
   );
+
+  const refetchData = () => refetch();
 
   useEffect(() => {
     if (productsData?.data)
       setItems(
         productsData.data.sort((a, b) => {
-          const nameA = a.name.toUpperCase();
-          const nameB = b.name.toUpperCase();
+          const nameA = a.name.toUpperCase() || "a";
+          const nameB = b.name.toUpperCase() || "b";
 
           if (nameA < nameB) {
             return -1;
@@ -46,7 +49,7 @@ export const ProductsContextProvider = ({ children }: ProductsContextProps) => {
   }, [productsData]);
 
   return (
-    <ProductsContext.Provider value={{ products }}>
+    <ProductsContext.Provider value={{ products, refetchData }}>
       {children}
     </ProductsContext.Provider>
   );

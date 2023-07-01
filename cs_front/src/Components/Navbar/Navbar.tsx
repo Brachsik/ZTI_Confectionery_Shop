@@ -13,11 +13,33 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import CakeIcon from "@mui/icons-material/Cake";
 import AdbIcon from "@mui/icons-material/Adb";
+import { useNavigate } from "react-router-dom";
+import { routes } from "../../Router/Router";
+import { AuthContext } from "../../Context/AuthContext";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = [
+  {
+    role: "user",
+    name: "Desserts",
+    path: "/desserts",
+  },
+  {
+    role: "user",
+    name: "Login",
+    path: "/login",
+  },
+  {
+    role: "admin",
+    name: "Administrator",
+    path: "/admin",
+  },
+];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export const ResponsiveAppBar = () => {
+  const navigate = useNavigate();
+  const authCtx = React.useContext(AuthContext);
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -74,30 +96,6 @@ export const ResponsiveAppBar = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
@@ -119,15 +117,30 @@ export const ResponsiveAppBar = () => {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            <Button
+              onClick={() => navigate("/desserts")}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              DESSERTS
+            </Button>
+
+            {authCtx?.role === "admin" && (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() => navigate("/admin")}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                ADMIN PANEL
               </Button>
-            ))}
+            )}
+            {authCtx?.id === null && (
+              <Button
+                variant="outlined"
+                onClick={() => navigate("/login")}
+                sx={{ my: 2, color: "white", display: "block", ml: "auto" }}
+              >
+                LOGIN
+              </Button>
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -152,11 +165,26 @@ export const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              {authCtx?.id === null ? (
+                <span className="px-4">Log In for info!</span>
+              ) : (
+                <div className="flex flex-col align-middle px-4">
+                  <span>ID: {authCtx?.id}</span>
+                  <span>First name: {authCtx?.first_name}</span>
+                  <span>Last name: {authCtx?.last_name}</span>
+                  <span>Email: {authCtx?.email}</span>
+                  <MenuItem
+                    onClick={() => {
+                      handleCloseUserMenu();
+                      authCtx?.logout();
+                    }}
+                  >
+                    <Button>
+                      <Typography textAlign="center">Logout</Typography>
+                    </Button>
+                  </MenuItem>
+                </div>
+              )}
             </Menu>
           </Box>
         </Toolbar>

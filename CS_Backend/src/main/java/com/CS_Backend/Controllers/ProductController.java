@@ -33,4 +33,10 @@ public class ProductController {
         productService.deleteProduct(id);
     }
 
+    @PutMapping(path = "{productId}")
+    public void updateProduct(@PathVariable("productId") Long id,
+    @RequestBody Product prod) {
+        productService.editProduct(id, prod.getQuantity());
+    }
+
 }

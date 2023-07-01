@@ -28,7 +28,7 @@ export interface BasketProps {
 export const BasketContext = createContext<BasketProps | null>(null);
 
 export const BasketContextProvider = ({ children }: BasketContextProps) => {
-  const [items, setItems] = useState<ProductType[] | null>(null);
+  const [items, setItems] = useState<ProductType[]>([]);
 
   const productsCtx = useContext(ProductsContext);
 

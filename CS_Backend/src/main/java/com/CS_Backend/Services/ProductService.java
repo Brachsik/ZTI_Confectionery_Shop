@@ -5,6 +5,7 @@ import com.CS_Backend.Layers.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,5 +37,13 @@ public class ProductService {
             throw new IllegalStateException("product does not exists");
         }
         productsRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void editProduct(Long id, Integer quantity) {
+        Product productById = productsRepository.findById(id).orElseThrow(
+                ()-> new IllegalStateException("Product does not exists!")
+        );
+        productById.setQuantity(quantity);
     }
 }
