@@ -1,9 +1,4 @@
-import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import { ResponsiveAppBar } from "../Components/Navbar";
-import { useQuery } from "react-query";
-import { getProducts } from "../API/queries";
 import { Grid, Typography } from "@mui/material";
 import { ProductTable } from "../Components/Product/ProductTable";
 import { CartTable } from "../Components/Cart/CartTable";
@@ -14,28 +9,6 @@ function App() {
       <div className="p-2">
         <ResponsiveAppBar />
       </div>
-
-      {/* <main className="container mx-auto py-8">
-        <section className="mb-8">
-          <h2 className="text-xl font-bold">About Us</h2>
-          <p>This is a brief description of our website.</p>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl font-bold">Services</h2>
-          <ul className="list-disc list-inside">
-            <li>Service 1</li>
-            <li>Service 2</li>
-            <li>Service 3</li>
-          </ul>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl font-bold">Contact</h2>
-          <p>Contact us at example@example.com</p>
-        </section>
-      </main> */}
-
       <Grid container spacing={2} gap={1} className="p-2 pl-6 p pt-4">
         <Grid item xs={8} className="bg-white rounded-sm flex">
           <div className="p-4">

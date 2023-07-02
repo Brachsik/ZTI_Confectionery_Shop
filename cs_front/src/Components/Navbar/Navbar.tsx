@@ -14,48 +14,18 @@ import MenuItem from "@mui/material/MenuItem";
 import CakeIcon from "@mui/icons-material/Cake";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
-import { routes } from "../../Router/Router";
 import { AuthContext } from "../../Context/AuthContext";
-
-const pages = [
-  {
-    role: "user",
-    name: "Desserts",
-    path: "/desserts",
-  },
-  {
-    role: "user",
-    name: "Login",
-    path: "/login",
-  },
-  {
-    role: "admin",
-    name: "Administrator",
-    path: "/admin",
-  },
-];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export const ResponsiveAppBar = () => {
   const navigate = useNavigate();
   const authCtx = React.useContext(AuthContext);
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
@@ -91,7 +61,7 @@ export const ResponsiveAppBar = () => {
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleOpenNavMenu}
+              onClick={() => null}
               color="inherit"
             >
               <MenuIcon />

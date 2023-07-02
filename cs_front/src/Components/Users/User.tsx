@@ -1,7 +1,4 @@
 import { Button, TableCell, TableRow } from "@mui/material";
-import { useContext } from "react";
-import { AuthContext } from "../../Context/AuthContext";
-import { BasketContext } from "../../Context/BasketContext";
 import { UserType } from "../../API/userType";
 import { useMutationUserDelete } from "../../API/queries";
 import DeleteIcon from "@mui/icons-material/Delete";

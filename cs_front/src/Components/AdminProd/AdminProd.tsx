@@ -1,20 +1,18 @@
 import { Button, TableCell, TableRow } from "@mui/material";
 import { ProductType } from "../../API/producType";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../Context/AuthContext";
-import { BasketContext } from "../../Context/BasketContext";
+import { useContext, useEffect, useState } from "react";
 import {
   useMutationEditProduct,
   useMutationProductDelete,
 } from "../../API/queries";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { ProductsContext } from "../../Context/ProductsContext";
 
 interface ProductProps {
   product: ProductType;
 }
 
 export const AdminProd = ({ product }: ProductProps) => {
-  const authCtx = useContext(AuthContext);
   const { mutate: deleteProduct, isSuccess: deleteSuccess } =
     useMutationProductDelete();
   const { mutate: editQuantity, isSuccess: editSuccess } =
@@ -22,8 +20,12 @@ export const AdminProd = ({ product }: ProductProps) => {
   const [internalQuantity, setInternalQUantity] = useState<number>(
     product.quantity
   );
-  const basketCtx = useContext(BasketContext);
+  const productCtx = useContext(ProductsContext);
   if (deleteSuccess) return null;
+
+  useEffect(() => {
+    productCtx?.refetchData();
+  }, [editSuccess]);
 
   return (
     <TableRow>

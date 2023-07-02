@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { ProductType, Products } from "../API/producType";
+import { ProductType } from "../API/producType";
 import { ProductsContext } from "./ProductsContext";
 
 interface BasketContextProps {

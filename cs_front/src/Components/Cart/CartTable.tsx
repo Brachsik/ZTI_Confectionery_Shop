@@ -7,16 +7,11 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { ProductType } from "../../API/producType";
 import { CartProduct } from "./CartProduct";
 import { useContext } from "react";
 import { BasketContext } from "../../Context/BasketContext";
 
-interface ProductTableProps {
-  products?: ProductType[];
-}
-
-export const CartTable = ({ products }: ProductTableProps) => {
+export const CartTable = () => {
   const basketCtx = useContext(BasketContext);
 
   if (!basketCtx?.items) return <h1>Basket is empty</h1>;

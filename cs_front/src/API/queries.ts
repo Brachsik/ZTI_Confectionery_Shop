@@ -1,7 +1,7 @@
 import axios from "axios";
 import { UserType, UserRegister } from "./userType";
 import { useMutation } from "react-query";
-import { ProductType, ProductTypeCreate, Products } from "./producType";
+import { ProductType, ProductTypeCreate } from "./producType";
 
 interface loginProps {
   email: string;

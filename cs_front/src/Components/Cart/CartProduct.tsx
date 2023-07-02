@@ -1,7 +1,6 @@
 import { Button, TableCell, TableRow } from "@mui/material";
 import { ProductType } from "../../API/producType";
 import { useContext } from "react";
-import { AuthContext } from "../../Context/AuthContext";
 import { BasketContext } from "../../Context/BasketContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -10,7 +9,6 @@ interface ProductProps {
 }
 
 export const CartProduct = ({ product }: ProductProps) => {
-  const authCtx = useContext(AuthContext);
   const basketCtx = useContext(BasketContext);
 
   return (
