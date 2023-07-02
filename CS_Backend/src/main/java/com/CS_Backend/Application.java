@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @EnableAspectJAutoProxy
 public class Application {
-
+    public String PORT = System.getenv("PORT");
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
