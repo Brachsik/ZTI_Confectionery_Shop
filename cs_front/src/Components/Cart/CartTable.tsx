@@ -28,22 +28,9 @@ export const CartTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {basketCtx.items
-            .sort((a, b) => {
-              const nameA = a.name.toUpperCase();
-              const nameB = b.name.toUpperCase();
-
-              if (nameA < nameB) {
-                return -1;
-              }
-              if (nameA > nameB) {
-                return 1;
-              }
-              return 0;
-            })
-            .map((prod) => (
-              <CartProduct product={prod} key={prod.id} />
-            ))}
+          {basketCtx.items.map((prod) => (
+            <CartProduct product={prod} key={prod.id} />
+          ))}
         </TableBody>
       </Table>
     </TableContainer>

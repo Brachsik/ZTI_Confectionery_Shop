@@ -31,21 +31,7 @@ export const ProductsContextProvider = ({ children }: ProductsContextProps) => {
   const refetchData = () => refetch();
 
   useEffect(() => {
-    if (productsData?.data)
-      setItems(
-        productsData.data.sort((a, b) => {
-          const nameA = a.name.toUpperCase() || "a";
-          const nameB = b.name.toUpperCase() || "b";
-
-          if (nameA < nameB) {
-            return -1;
-          }
-          if (nameA > nameB) {
-            return 1;
-          }
-          return 0;
-        })
-      );
+    if (productsData?.data) setItems(productsData.data);
   }, [productsData]);
 
   return (
