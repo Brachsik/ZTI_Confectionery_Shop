@@ -28,9 +28,11 @@ export const CartTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {basketCtx.items.map((prod) => (
-            <CartProduct product={prod} key={prod.id} />
-          ))}
+          {basketCtx.items
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((prod) => (
+              <CartProduct product={prod} key={prod.id} />
+            ))}
         </TableBody>
       </Table>
     </TableContainer>

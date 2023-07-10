@@ -21,11 +21,12 @@ export const AdminProd = ({ product }: ProductProps) => {
     product.quantity
   );
   const productCtx = useContext(ProductsContext);
-  if (deleteSuccess) return null;
 
   useEffect(() => {
     productCtx?.refetchData();
   }, [editSuccess]);
+
+  if (deleteSuccess) return null;
 
   return (
     <TableRow>
@@ -64,7 +65,9 @@ export const AdminProd = ({ product }: ProductProps) => {
           <Button
             variant="outlined"
             color="error"
-            onClick={() => deleteProduct(product.id)}
+            onClick={() => {
+              deleteProduct(product.id);
+            }}
           >
             <DeleteIcon />
           </Button>

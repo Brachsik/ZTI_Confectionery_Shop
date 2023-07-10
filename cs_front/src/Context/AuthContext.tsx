@@ -1,6 +1,7 @@
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useContext, useState } from "react";
 import { UserType } from "../API/userType";
 import { useNavigate } from "react-router-dom";
+import { BasketContext } from "./BasketContext";
 
 interface AuthContextProps {
   children: ReactNode;
@@ -24,6 +25,7 @@ export const AuthContextProvider = ({ children }: AuthContextProps) => {
   const [last_name, setLast_name] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [role, setRole] = useState<string>("user");
+  const basketCtx = useContext(BasketContext);
 
   const navigate = useNavigate();
 
@@ -42,6 +44,8 @@ export const AuthContextProvider = ({ children }: AuthContextProps) => {
     setLast_name("");
     setEmail("");
     setRole("user");
+    basketCtx?.clearBasket();
+    navigate("/desserts");
   };
 
   return (

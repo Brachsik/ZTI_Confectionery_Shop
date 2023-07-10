@@ -8,7 +8,7 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [pswd, setPswd] = useState("");
 
-  const { isSuccess, data, mutate } = useMutationLogin();
+  const { isSuccess, isError, data, mutate } = useMutationLogin();
 
   const authCtx = useContext(AuthContext);
 
@@ -65,6 +65,11 @@ export const Login = () => {
                   placeholder="Password"
                   required
                 ></input>
+                {isError && (
+                  <p className="text-sm text-red-600">
+                    Email or password invalid!
+                  </p>
+                )}
               </div>
               <button
                 className="rounded-full bg-blue-600 p-2 text-lg text-white"

@@ -11,7 +11,7 @@ export const User = ({ singleUser }: singleUserProps) => {
   const { mutate, isSuccess } = useMutationUserDelete();
 
   if (isSuccess) return null;
-  console.log(singleUser);
+
   return (
     <TableRow>
       <TableCell component="th" scope="row">
@@ -25,7 +25,7 @@ export const User = ({ singleUser }: singleUserProps) => {
       <TableCell align="right">
         <Button
           onClick={() => mutate(singleUser.id)}
-          disabled={false}
+          disabled={singleUser.role === "admin"}
           variant="contained"
           color="error"
         >

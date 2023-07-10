@@ -21,10 +21,10 @@ export const UserTable = () => {
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell>Dessert</TableCell>
-            <TableCell align="right">Weigth</TableCell>
-            <TableCell align="right">Quantity</TableCell>
-            <TableCell align="right">Price</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell align="right">Last name</TableCell>
+            <TableCell align="right">Email</TableCell>
+            <TableCell align="right">Role</TableCell>
             <TableCell align="right">Action</TableCell>
           </TableRow>
         </TableHead>

@@ -35,12 +35,12 @@ export const ProductTable = ({ secondary }: ProductTableProps) => {
         </TableHead>
         <TableBody>
           {!secondary
-            ? productsCtx.products.map((prod) => (
-                <Product product={prod} key={prod.id} />
-              ))
-            : productsCtx.products.map((prod) => (
-                <AdminProd product={prod} key={prod.id} />
-              ))}
+            ? productsCtx.products
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((prod) => <Product product={prod} key={prod.id} />)
+            : productsCtx.products
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((prod) => <AdminProd product={prod} key={prod.id} />)}
         </TableBody>
       </Table>
     </TableContainer>

@@ -23,6 +23,7 @@ export interface BasketProps {
   addItem: (arg0: ProductType) => void;
   deleteItem: (arg0: string) => void;
   canBeAdded: (arg0: string) => boolean;
+  clearBasket: () => void;
 }
 
 export const BasketContext = createContext<BasketProps | null>(null);
@@ -76,8 +77,14 @@ export const BasketContextProvider = ({ children }: BasketContextProps) => {
     }
   };
 
+  const clearBasket = () => {
+    setItems([]);
+  };
+
   return (
-    <BasketContext.Provider value={{ items, addItem, deleteItem, canBeAdded }}>
+    <BasketContext.Provider
+      value={{ items, addItem, deleteItem, canBeAdded, clearBasket }}
+    >
       {children}
     </BasketContext.Provider>
   );
